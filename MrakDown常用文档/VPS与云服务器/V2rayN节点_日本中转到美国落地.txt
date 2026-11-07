@@ -1,0 +1,7 @@
+﻿# 已废弃
+
+日本中转节点已从 VMess + WebSocket 升级为 VLESS + Reality。
+旧 VMess 入站已替换，不要继续导入本文件。
+
+请使用：
+V2rayN节点_日本Reality中转到美国落地.txt

@@ -1,0 +1,7 @@
+﻿# 已废弃
+
+日本 58443 已从 IPv4 内核 TCP 中继改为 IPv6 VLESS+Reality 入站。
+旧 IPv4 内核中继配置已删除，不要继续导入本文件。
+
+请使用：
+V2rayN节点_日本IPv6中转到美国IPv4.txt

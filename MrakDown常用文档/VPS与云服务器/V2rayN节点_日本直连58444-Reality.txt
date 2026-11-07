@@ -1,0 +1,20 @@
+﻿# V2rayN VLESS + Reality（日本 IPv6 直连出口）
+vless://11e4909f-7106-4680-8b90-e02e223310f5@[2001:470:24:7c2:1::3]:58444?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.apple.com&fp=chrome&pbk=xjdwALL1VU60kwc70OHS77-JDFLStNF78lGNj6BKSCo&sid=11d8243d&type=tcp&headerType=none#JP-Direct-Reality-IPv6
+
+# 节点参数
+地址：[2001:470:24:7c2:1::3]
+公网端口：58444/tcp
+协议：VLESS
+流控：xtls-rprx-vision
+安全：Reality
+SNI：www.apple.com
+指纹：chrome
+Reality 公钥：xjdwALL1VU60kwc70OHS77-JDFLStNF78lGNj6BKSCo
+Short ID：11d8243d
+传输：TCP/RAW
+前置代理：不启用
+Mux：关闭
+
+# IPv4 备用地址：142.91.108.200:58444
+# 日本 58443 已改为 IPv6 入口并转发至美国 IPv4；58444 仍为日本 IPv6 直连出口。
+

@@ -1,0 +1,7 @@
+﻿# 已废弃
+
+日本节点已切换为 Linux 内核 TCP 透明中继。
+原日本 VLESS+Reality 入站已删除，因此本文件中的日本 Reality UUID、公钥和 Short ID 已失效。
+
+请使用：
+V2rayN节点_日本内核TCP中继到美国Reality.txt
