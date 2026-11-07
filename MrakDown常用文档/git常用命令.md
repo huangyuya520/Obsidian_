@@ -15,8 +15,10 @@ git branch --no-merged          显示所有未合并到当前分支的分支
 git reset --hard HEAD^    回滚到上一个版本，彻底回退（丢弃上个版本之后的所有修改和代码）
 git revert HEAD       安全回退：通过 git revert（适用于已经推送到远程、多人协作的分支）
 
+
 git branch -M `<xxx>`     将当前主分支重命名为 xxx
 git remote add origin `<Your-Repo-URL>`    关联远程 GitHub 仓库
+
 
 git add <文件名>    添加指定文件到修改区
 git add .       添加当前目录下的所有文件到修改区
@@ -25,6 +27,8 @@ git push origin <分支名>   将本地分支推送到远程对应分支
 
 
 
+git rm --cached `<文件名>`        
+git commit -m "<停止追踪某文件>"    从 Git 追踪中移除文件，但保留在本地
 
 
 
