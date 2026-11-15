@@ -1,8 +1,37 @@
-【主入口】VLESS-Reality-Vision 216.36.85.184:24065
-vless://683aef9c-4583-4d90-988a-355797ebc111@216.36.85.184:24065?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k&sid=c56b7bb5&type=tcp&headerType=none#US-Relay-Reality-24065
+【二级代理 · 中转→落地 · 2026-11-15 重建】
+中转入口 IP：216.36.85.184（美国 CN2GIA，LXD NAT VPS）
+落地出口：104.233.150.10（美国 圣何塞 PEG TECH/AS54600，sing-box VLESS-Reality:44300）
+最终出口 IP 应为：104.233.150.10
 
-【备用入口】VLESS-Reality-Vision 216.36.85.184:24051
+────────────────────────
+■ 主力：VLESS-Reality-Vision（TCP，抗封锁，推荐日常）
+【主入口 24065】
+vless://683aef9c-4583-4d90-988a-355797ebc111@216.36.85.184:24065?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k&sid=c56b7bb5&type=tcp&headerType=none#US-Relay-Reality-24065
+【备用入口 24051（同参数，仅端口不同）】
 vless://683aef9c-4583-4d90-988a-355797ebc111@216.36.85.184:24051?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k&sid=c56b7bb5&type=tcp&headerType=none#US-Relay-Reality-24051
 
-【最终出口】应为 23.134.76.135（美国 纽约，家宽）
+────────────────────────
+■ 高速：Hysteria2（UDP/QUIC，带宽更高，丢包环境更稳）
+【Hy2 24060】带 salamander 混淆
+hy2://Hy2A7f3kQ9mZ2pX4@216.36.85.184:24060/?sni=www.bing.com&insecure=1&obfs=salamander&obfs-password=Ob5sT8vR1nY6cJ3d#US-Relay-Hy2-24060
+【Hy2 24061】无混淆
+hy2://Hy2P2w8Lq4tN9bM6s@216.36.85.184:24061/?sni=www.bing.com&insecure=1#US-Relay-Hy2-24061
+【Hy2 24063】带 salamander 混淆
+hy2://Hy2C3v9Nd6fH1jK5@216.36.85.184:24063/?sni=www.bing.com&insecure=1&obfs=salamander&obfs-password=Ob2pQ7wE4rT8yU6i#US-Relay-Hy2-24063
+
+────────────────────────
+■ 备用：TUIC v5（UDP/QUIC，BBR）
+tuic://e3ef293f-67f0-410f-91f6-0b4c865357c7:Tu5c8Rk2mW7xQ4aZ@216.36.85.184:24062?sni=www.bing.com&alpn=h3&congestion_control=bbr&allow_insecure=1#US-Relay-TUIC-24062
+
+────────────────────────
+■ 参数速查
+VLESS-Reality：uuid=683aef9c-4583-4d90-988a-355797ebc111 / pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k / sid=c56b7bb5 / sni=www.microsoft.com / fp=chrome / flow=xtls-rprx-vision
+Hy2/TUIC：自签证书域名 www.bing.com，客户端需 allowInsecure/insecure=1
 【中转面板】http://216.36.85.184:16678/hy88/  账号 huangyu
+【落地面板】SSH root@104.233.150.10:31745（经中转跳板）  端口 44300 为落地 sing-box 入站
+
+■ 选路建议
+· 日常/看网页：24065（Reality，握手像正常 TLS，最隐蔽）
+· 大流量/看视频/丢包重：24060 或 24063（Hysteria2，实测带宽最高）
+· 24051 / 24061 / 24062 作故障切换备用
+· 客户端只需连中转，严禁再开“前置代理”，链路已在服务端完成
