@@ -1,0 +1,8 @@
+【主入口】VLESS-Reality-Vision 216.36.85.184:24065
+vless://683aef9c-4583-4d90-988a-355797ebc111@216.36.85.184:24065?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k&sid=c56b7bb5&type=tcp&headerType=none#US-Relay-Reality-24065
+
+【备用入口】VLESS-Reality-Vision 216.36.85.184:24051
+vless://683aef9c-4583-4d90-988a-355797ebc111@216.36.85.184:24051?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k&sid=c56b7bb5&type=tcp&headerType=none#US-Relay-Reality-24051
+
+【最终出口】应为 23.134.76.135（美国 纽约，家宽）
+【中转面板】http://216.36.85.184:16678/hy88/  账号 huangyu
