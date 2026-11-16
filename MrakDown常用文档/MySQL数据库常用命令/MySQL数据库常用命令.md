@@ -154,7 +154,7 @@ YEAR()		      返回年份
 
 ###### limit限制查询
 
-select * from <tablename></tablename> limit `<num1></num1> <num2></num2>;`        查询id从<num1></num1>开始(不包括`<num1></num1>`)到`<num2></num2>`的字段
+select * from <tablename></tablename> limit `<num1> <num2>;`        查询id从`<num1>`开始(不包括`<num1>`)到`<num2>`的字段
 
 ###### 为字段起别名
 
