@@ -35,3 +35,29 @@ Hy2/TUIC：自签证书域名 www.bing.com，客户端需 allowInsecure/insecure
 · 大流量/看视频/丢包重：24060 或 24063（Hysteria2，实测带宽最高）
 · 24051 / 24061 / 24062 作故障切换备用
 · 客户端只需连中转，严禁再开“前置代理”，链路已在服务端完成
+
+────────────────────────
+■ 家宽专用（AI / API，纯净家宽出口 31.105.3.182 / 美国纽约 RCN AS6079）
+【24064】客户端→中转→落地 sing-box(44301)→母鸡家宽节点(10.91.0.1:2222)→出口 31.105.3.182
+vless://3a820b6b-ba76-4bae-86f0-132e9fb2c193@216.36.85.184:24064?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k&sid=c56b7bb5&type=tcp#US-Home-AI-24064
+· 特性：ip-api 检测 hosting=false / proxy=false / mobile=false（纯净值 0 家宽）；带宽约 2.5MB/s（“速度不快”），只适合 AI/API 等低流量高纯净需求，别当主力
+· 分流建议：V2rayN 里把 openai/anthropic/gemini/api.* 等域名规则指到这个 24064 节点，其余走 24065
+· 已在【服务端】做好 Google 分流：挂 24064 时 Google/YouTube/gstatic 等自动走主链路（与 24065 同出口，可正常访问），其余（AI/API、普通站）走纯净家宽 31.105.3.182；客户端无需额外配置
+· V2rayN 测延迟：把测速URL设为 https://www.gstatic.com/generate_204 最稳（用默认 google 也可，已走主链路）
+
+────────────────────────
+■ 直连节点（不经过二级链路，直接用该机自身出口）
+【中转直连 UDP 46303】客户端→hy2(216.36.85.184:46303/udp)→出口 216.36.85.184（大陆直连推荐，对抗 TCP 封锁）
+hy2://DirH7x2qL9mK4pZ8@216.36.85.184:46303/?sni=www.bing.com&insecure=1&obfs=salamander&obfs-password=Dob3wT6nR1cY5jV#US-Relay-Direct-UDP-46303
+【中转直连 TCP 46303（备用，大陆易连不上）】
+vless://8695fa6b-2cc7-49ae-8d6e-c755a2094d70@216.36.85.184:46303?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=A-BuRj432-GHJhseVTm8TmZIeYgug8n_-awHnE-vd2k&sid=c56b7bb5&type=tcp&headerType=none#US-Relay-Direct-46303
+【落地直连 44300】客户端→104.233.150.10:44300(Reality)→出口 104.233.150.10（落地机自身）
+vless://4fe8a868-0a5f-4a01-ad32-2b1bc34c84ea@104.233.150.10:44300?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=f1Q5P6xavbvTcfGu3NownmiyL4UUmhtZTgr114K_cFM&sid=c56b7bb5&type=tcp&headerType=none#US-Landing-Direct-44300
+· 直连节点用途：测机/备用/低流量；不经中转→落地链路。落地直连实测更顺（gstatic 0.87s）；中转直连受中转机国际线路限制，单流偏慢（约 0.5MB/s、延迟~1.2s），大流量仍走 24065 或家宽 24064
+
+────────────────────────
+■ WebRTC / STUN（Claude 语音等）防真实 IP 泄露
+· 关键：V2rayN 必须开「启用 Tun」+ 活动节点选 24064；不开 TUN 时浏览器 WebRTC 的 UDP 会绕过代理直连，直接泄露你本地真实 IP
+· 24064 已做协议分流：TCP(网页/AI)→家宽 31.105.3.182；所有 UDP(STUN/WebRTC/QUIC)→主链路 104.233.150.10（家宽上游母鸡节点不支持 UDP，STUN 走主链路同样不暴露真实 IP，且 Claude 语音可用）
+· 验证：浏览器打开 https://browserleaks.com/webrtc ，WebRTC 公网 IP 应显示 104.233.150.10（不是你本地宽带 IP），网页 IP 显示 31.105.3.182
+· 双保险（可选）：Chrome/Edge 策略 WebRtcIPHandlingPolicy=disable_non_proxied_udp，强制 WebRTC 不走非代理 UDP
