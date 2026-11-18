@@ -74,6 +74,11 @@ F### 1.设置本地密码安全策略
    **寻找指定进程的pid tasklist |findstr "<进程名>"** 
            强制关闭 taskkill /pid <PID会话名> -t -f
 
+   netstat -ano | findstr "<端口号>"     **查看占用端口的 PID**
+   taskkill /F /T /PID <进程号>     结束指定进程
+
+
+
 ### 9.操作命令 
 
   **列出当前路径所有目录和文件 dir**
