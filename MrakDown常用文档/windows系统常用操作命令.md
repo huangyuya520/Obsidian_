@@ -15,7 +15,7 @@ F### 1.设置本地密码安全策略
   **删除账号命令 net user moon /del**
   **查看本地密码安全策略 net accounts**
   查看当前会话 net session
-  **设置python虚拟环境       python -m venv `<vnevname>`**
+  **设置python虚拟环境       python -m venv `<虚拟环境名>`**
   **激活python虚拟环境      windowos:   `<venvname>`\Scripts\Activate.ps1**
 					  **Linux:   source `<venvname>`/bin/activate**
 
