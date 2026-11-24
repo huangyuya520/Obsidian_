@@ -27,7 +27,7 @@
 
 账户：`root`
 
-密码：`GUY1ijygn&pd^HFq`
+密码：`qazplm111111`
 
 Server ipv4地址：142.91.108.200
 
