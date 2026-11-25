@@ -75,13 +75,13 @@ vless://7fb66fef-20d9-4eba-a660-e2c73486fc5d@172.245.182.136:443?encryption=none
 ■ 备用：中转直连（TCP 8443，出口=172.245.182.136）
 vless://9ed36335-a7af-4295-bff0-a48a3d6f9c04@172.245.182.136:8443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=ZS0jBlZlgxLrtZVcMeyOE1zZDRt8wsUk8PLeVSLl5lg&sid=d2698ba00f016959&type=tcp&headerType=none#US-ATL-Direct-8443
 
-■ 备用：落地直连（TCP 54321，出口=192.220.32.121；中转故障时应急）
-vless://5aecf1cf-762c-4f58-90c0-22b0188b0c11@192.220.32.121:54321?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=0UkvLdS0xUpxPh-kH3U9NLJT93fX5nWYqrnsnvG4w0s&sid=a9965224319ea4c1&type=tcp&headerType=none#US-LAX-Home-Direct-54321
+■ 备用：落地直连（TCP 54322，出口=192.220.32.121；中转故障时应急；2026-11-25 由 54321 更换为 54322，面板新增 TCP 54322→54322 映射）
+vless://5aecf1cf-762c-4f58-90c0-22b0188b0c11@192.220.32.121:54322?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=0UkvLdS0xUpxPh-kH3U9NLJT93fX5nWYqrnsnvG4w0s&sid=a9965224319ea4c1&type=tcp&headerType=none#US-LAX-Home-Direct-54322
 
 ────────────────────────
 ■ 参数速查（新链）
 主链路/中转直连：pbk=ZS0jBlZlgxLrtZVcMeyOE1zZDRt8wsUk8PLeVSLl5lg / sid=d2698ba00f016959 / sni=www.microsoft.com / fp=chrome / flow=xtls-rprx-vision
-落地直连：pbk=0UkvLdS0xUpxPh-kH3U9NLJT93fX5nWYqrnsnvG4w0s / sid=a9965224319ea4c1 / 其余同上
+落地直连：pbk=0UkvLdS0xUpxPh-kH3U9NLJT93fX5nWYqrnsnvG4w0s / sid=a9965224319ea4c1 / 其余同上（端口已换 54322；54321 仅供中转链路使用，客户端别再用 54321 直连）
 
 ■ 选路建议（新链）
 · 纯净 IP 场景（AI/API/注册）：主链路 443（出口 192.220.32.121，Gemini/Google 直连可用）
