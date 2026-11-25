@@ -85,6 +85,6 @@ vless://5aecf1cf-762c-4f58-90c0-22b0188b0c11@192.220.32.121:54321?encryption=non
 
 ■ 选路建议（新链）
 · 纯净 IP 场景（AI/API/注册）：主链路 443（出口 192.220.32.121，Gemini/Google 直连可用）
-· 中转 172.245.182.136 上另有 S-Box 多协议节点（hy2/tuic/vmess/vless，随机端口）与 WARP，可作大流量分流
+· 中转 172.245.182.136 原有的 S-Box 多协议节点与 WARP 已于 2026-11-25 移除（备份：/root/sbox-removal-20261125T094440Z.tar.gz）；大流量分流暂用 8443 中转直连；机器上另留有 agsbx(甬哥Argo-SB) 与 cf-argo(cloudflared) 待定是否移除
 · 已知：落地机上游测试时段拥塞（直连 CF ~267KB/s），链路本身无瓶颈；大流量下载建议多线程或走中转直连/S-Box 节点
 · V2rayN 测速 URL 用 https://www.gstatic.com/generate_204
