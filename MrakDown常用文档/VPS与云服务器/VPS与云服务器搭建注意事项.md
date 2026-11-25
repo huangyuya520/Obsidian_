@@ -18,10 +18,8 @@
 
 ![image-20260314182634074](image-20260314182634074.png)
 
-![](Pasted%20image%2020261125155248.png)
-
 账户:`root`
-密码:`xs3JzKvKe78t`
+密码:`V63IHd0w4jMQ29gryS`
 
 
 
