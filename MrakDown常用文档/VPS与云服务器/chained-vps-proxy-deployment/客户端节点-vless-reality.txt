@@ -61,3 +61,30 @@ vless://4fe8a868-0a5f-4a01-ad32-2b1bc34c84ea@104.233.150.10:44300?encryption=non
 · 24064 已做协议分流：TCP(网页/AI)→家宽 31.105.3.182；所有 UDP(STUN/WebRTC/QUIC)→主链路 104.233.150.10（家宽上游母鸡节点不支持 UDP，STUN 走主链路同样不暴露真实 IP，且 Claude 语音可用）
 · 验证：浏览器打开 https://browserleaks.com/webrtc ，WebRTC 公网 IP 应显示 104.233.150.10（不是你本地宽带 IP），网页 IP 显示 31.105.3.182
 · 双保险（可选）：Chrome/Edge 策略 WebRtcIPHandlingPolicy=disable_non_proxied_udp，强制 WebRTC 不走非代理 UDP
+
+────────────────────────
+【2026-11-25 新增 · 亚特兰大中转 → 洛杉矶家宽落地】
+中转入口 IP：172.245.182.136（美国亚特兰大 KVM，Ubuntu，Xray 26.11.9，BBR+TFO）
+落地出口：192.220.32.121（美国洛杉矶 NTT AS2914 家宽云 NAT，sing-box Reality:54321）
+最终出口 IP 应为：192.220.32.121（ip-api hosting=false/proxy=false，scamalytics 7/100 low）
+
+────────────────────────
+■ 主力：VLESS-Reality-Vision 链式家宽（TCP 443，出口=192.220.32.121）
+vless://7fb66fef-20d9-4eba-a660-e2c73486fc5d@172.245.182.136:443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=ZS0jBlZlgxLrtZVcMeyOE1zZDRt8wsUk8PLeVSLl5lg&sid=d2698ba00f016959&type=tcp&headerType=none#US-ATL-Chain-Home-443
+
+■ 备用：中转直连（TCP 8443，出口=172.245.182.136）
+vless://9ed36335-a7af-4295-bff0-a48a3d6f9c04@172.245.182.136:8443?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=ZS0jBlZlgxLrtZVcMeyOE1zZDRt8wsUk8PLeVSLl5lg&sid=d2698ba00f016959&type=tcp&headerType=none#US-ATL-Direct-8443
+
+■ 备用：落地直连（TCP 54321，出口=192.220.32.121；中转故障时应急）
+vless://5aecf1cf-762c-4f58-90c0-22b0188b0c11@192.220.32.121:54321?encryption=none&flow=xtls-rprx-vision&security=reality&sni=www.microsoft.com&fp=chrome&pbk=0UkvLdS0xUpxPh-kH3U9NLJT93fX5nWYqrnsnvG4w0s&sid=a9965224319ea4c1&type=tcp&headerType=none#US-LAX-Home-Direct-54321
+
+────────────────────────
+■ 参数速查（新链）
+主链路/中转直连：pbk=ZS0jBlZlgxLrtZVcMeyOE1zZDRt8wsUk8PLeVSLl5lg / sid=d2698ba00f016959 / sni=www.microsoft.com / fp=chrome / flow=xtls-rprx-vision
+落地直连：pbk=0UkvLdS0xUpxPh-kH3U9NLJT93fX5nWYqrnsnvG4w0s / sid=a9965224319ea4c1 / 其余同上
+
+■ 选路建议（新链）
+· 纯净 IP 场景（AI/API/注册）：主链路 443（出口 192.220.32.121，Gemini/Google 直连可用）
+· 中转 172.245.182.136 上另有 S-Box 多协议节点（hy2/tuic/vmess/vless，随机端口）与 WARP，可作大流量分流
+· 已知：落地机上游测试时段拥塞（直连 CF ~267KB/s），链路本身无瓶颈；大流量下载建议多线程或走中转直连/S-Box 节点
+· V2rayN 测速 URL 用 https://www.gstatic.com/generate_204
