@@ -27,8 +27,7 @@ git push origin <分支名>   将本地分支推送到远程对应分支
 
 
 
-git rm --cached `<文件名>`        
-git commit -m "<停止追踪某文件>"    从 Git 追踪中移除文件，但保留在本地
+git rm --cached `<文件名>`          从 Git 追踪中移除文件，但保留在本地
 
 
 
